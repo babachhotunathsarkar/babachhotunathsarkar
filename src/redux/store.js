@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import authReducer from './slices/authSlice'
+import authReducer from './auth/authSlice'
 import notificationsReducer from './slices/notificationsSlice'
 import eventsReducer from './slices/eventsSlice'
 import galleryReducer from './slices/gallerySlice'
