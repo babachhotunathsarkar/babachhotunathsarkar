@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bhagwa-primary: #FF6600;
+  --bhagwa-light: #FF9933;
+  --bhagwa-dark: #CC5200;
+  --white: #FFFFFF;
+  --cream: #FFF8F0;
+  --text-dark: #1A1A1A;
+  --text-muted: #666666;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    background-color: var(--white);
+    color: var(--text-dark);
+    line-height: 1.6;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-saffron text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-saffron-dark hover:shadow-lg;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-saffron border-2 border-saffron px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-saffron hover:text-white;
+  }
+
+  .card {
+    @apply bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+
+  .section-title {
+    @apply text-2xl md:text-3xl font-bold text-bhagwa-700 mb-6 relative pb-3;
+  }
+
+  .section-title::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-20 h-1 bg-saffron rounded-full;
+  }
+
+  .gradient-bhagwa {
+    background: linear-gradient(135deg, var(--bhagwa-light) 0%, var(--bhagwa-primary) 100%);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, var(--bhagwa-primary) 0%, var(--bhagwa-dark) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .overlay-gradient {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+  }
+}
+
+@layer utilities {
+  .marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Lightbox styles */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-content {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bhagwa-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bhagwa-primary);
+}
+
+/* ── End of CSS ── */
