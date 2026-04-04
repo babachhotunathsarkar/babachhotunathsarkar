@@ -45,7 +45,7 @@ const Section = ({ title, content, image, imageLeft, accent = false }) => {
                 <img
                   src={image}
                   alt={title}
-                  className="w-full h-[300px] md:h-[450px] lg:h-[500px] object-cover object-center transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-[400px] md:h-[550px] lg:h-[650px] object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-orange-950/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
@@ -284,15 +284,25 @@ const About = () => {
                   {/* Content Container */}
                   <div className="w-full md:w-1/2 px-4 md:px-12">
                     <FadeInWhenVisible direction={item.align === 'left' ? 'right' : 'left'}>
-                      <div className={`p-8 rounded-[2.5rem] bg-stone-50 border border-stone-100 shadow-xl hover:shadow-2xl transition-all relative group ${item.align === 'left' ? 'text-right' : 'text-left'}`}>
-                        <span className="text-6xl font-black text-orange-500/10 absolute top-4 right-8 group-hover:text-orange-500/20 transition-colors">
-                          {item.year}
-                        </span>
-                        <div className={`inline-block px-4 py-1 rounded-full bg-orange-100 text-orange-600 text-xs font-bold uppercase tracking-widest mb-4`}>
+                      <div className={`p-10 rounded-[3rem] bg-white border border-orange-50 shadow-2xl hover:shadow-orange-200/50 transition-all relative group ${item.align === 'left' ? 'text-right' : 'text-left'}`}>
+                        {/* Elegant Year Badge */}
+                        <div className={`absolute top-0 ${item.align === 'left' ? 'right-0 -translate-y-1/2' : 'left-0 -translate-y-1/2'} flex items-center justify-center`}>
+                          <div className="px-6 py-2 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold rounded-2xl shadow-lg transform group-hover:scale-110 transition-transform">
+                            {item.year}
+                          </div>
+                        </div>
+                        
+                        <div className={`inline-block px-4 py-1 rounded-full bg-orange-50 text-orange-600 text-xs font-bold uppercase tracking-widest mb-6 border border-orange-100`}>
                           {item.engTitle}
                         </div>
-                        <h3 className="text-2xl font-bold text-stone-900 mb-3">{item.title}</h3>
-                        <p className="text-stone-600 leading-relaxed font-medium">{item.desc}</p>
+                        
+                        <h3 className="text-3xl font-bold text-stone-900 mb-4 tracking-tight group-hover:text-orange-600 transition-colors">
+                          {item.title}
+                        </h3>
+                        
+                        <p className="text-stone-500 text-lg leading-relaxed font-normal">
+                          {item.desc}
+                        </p>
                       </div>
                     </FadeInWhenVisible>
                   </div>

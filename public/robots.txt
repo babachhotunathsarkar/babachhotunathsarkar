@@ -4,4 +4,4 @@ Disallow: /admin/
 Disallow: /profile/
 Disallow: /userDashboard/
 
-Sitemap: https://babachhotunathsarkar.com/sitemap.xml
+Sitemap: https://babachhotunathsarkar.vercel.app/sitemap.xml
