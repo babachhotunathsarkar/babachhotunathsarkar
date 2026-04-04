@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Play, X, ChevronLeft, ChevronRight, Loader, Calendar, Eye } from 'lucide-react';
+import { Play, X, ChevronLeft, ChevronRight, Loader as LucideLoader, Calendar, Eye } from 'lucide-react';
+import Loader from '../components/Loader';
 import { getAllVideos } from '../redux/videos/videoSlice';
 import SEO from "../components/SEO";
 
@@ -127,9 +128,7 @@ export default function Videos() {
       <section className="py-12">
         <div className="container mx-auto px-4">
           {isLoading ? (
-            <div className="flex justify-center items-center py-20">
-              <Loader className="w-12 h-12 text-orange-500 animate-spin" />
-            </div>
+            <Loader fullScreen={false} />
           ) : videos.length === 0 ? (
             <div className="text-center py-16">
               <p className="text-gray-500 text-lg">No videos found in this category</p>

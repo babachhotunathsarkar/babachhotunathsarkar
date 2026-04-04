@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { ZoomIn, X, ChevronLeft, ChevronRight, Loader } from 'lucide-react';
+import { ZoomIn, X, ChevronLeft, ChevronRight, Loader as LucideLoader } from 'lucide-react';
+import Loader from '../components/Loader';
 import { getAllImages, getImagesByCategory } from '../redux/images/imageSlice';
 import SEO from "../components/SEO";
 
@@ -118,9 +119,7 @@ export default function Gallery() {
       <section className="py-12">
         <div className="container mx-auto px-4">
           {isLoading ? (
-            <div className="flex justify-center items-center py-20">
-              <Loader className="w-12 h-12 text-orange-500 animate-spin" />
-            </div>
+            <Loader fullScreen={false} />
           ) : filteredPhotos.length === 0 ? (
             <div className="text-center py-16">
               <p className="text-gray-500 text-lg">No photos found in this category</p>

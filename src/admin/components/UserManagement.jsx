@@ -12,6 +12,7 @@ import {
   getAllUsers, getUserGrowth, updateUserRole,
   deleteUser, bulkDeleteUsers, setPage,
 } from '../../redux/adminUsers/adminUserSlice';
+import Loader from '../../components/Loader';
 
 /* ─────────────── helpers ─────────────── */
 const OmIcon = ({ className = '' }) => (
@@ -351,14 +352,7 @@ export default function UserManagement() {
         <div className="bg-white rounded-2xl border border-stone-200/80 shadow-sm overflow-hidden">
 
           {isLoading ? (
-            <div className="flex flex-col items-center justify-center py-28 gap-4">
-              <div className="relative w-12 h-12">
-                <div className="absolute inset-0 rounded-full border-4 border-amber-100" />
-                <div className="absolute inset-0 rounded-full border-4 border-t-amber-500 animate-spin" />
-              </div>
-              <p className="text-amber-600/80 font-sans text-sm">Loading devotees…</p>
-            </div>
-
+            <Loader fullScreen={false} />
           ) : users.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-28 gap-3">
               <OmIcon className="w-14 h-14 text-amber-200" />
@@ -584,7 +578,8 @@ export default function UserManagement() {
       {/* MODAL — User Detail */}
       {showDetail && detailUser && (
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center z-50 p-0 sm:p-4"
+          translate="no"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center z-50 p-0 sm:p-4 notranslate"
           onClick={(e) => { if (e.target === e.currentTarget) setShowDetail(false); }}
         >
           <div className="bg-white rounded-t-3xl sm:rounded-3xl w-full sm:max-w-md shadow-2xl overflow-hidden">
@@ -651,7 +646,8 @@ export default function UserManagement() {
       {/* MODAL — Delete Confirm */}
       {showDelete && (
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+          translate="no"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 notranslate"
           onClick={(e) => { if (e.target === e.currentTarget) { setShowDelete(false); setDeleteTarget(null); } }}
         >
           <div className="bg-white rounded-3xl max-w-sm w-full p-7 shadow-2xl border border-red-100">

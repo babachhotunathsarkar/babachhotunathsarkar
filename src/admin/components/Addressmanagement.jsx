@@ -10,6 +10,7 @@ import {
   fetchAddresses, createAddress, updateAddress,
   deleteAddress, setMainAddress,
 } from '../../redux/address/addressSlice';
+import Loader from '../../components/Loader';
 
 /* ── helpers ── */
 const OmIcon = ({ className = '' }) => (
@@ -139,10 +140,7 @@ export default function AddressManagement() {
 
         {/* Address Cards Grid */}
         {isLoading ? (
-          <div className="bg-white rounded-2xl border border-stone-200/80 shadow-sm flex items-center justify-center py-24 gap-3">
-            <div className="w-10 h-10 rounded-full border-4 border-teal-100 border-t-teal-500 animate-spin" />
-            <p className="text-teal-600/80 font-sans text-sm">Loading…</p>
-          </div>
+          <Loader fullScreen={false} />
         ) : addresses.length === 0 ? (
           <div className="bg-white rounded-2xl border border-stone-200/80 shadow-sm flex flex-col items-center justify-center py-24 gap-3">
             <MapPin className="w-12 h-12 text-teal-200" />

@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1',
-  withCredentials: true, // Zaroori hai agar backend cookies check kar raha hai
+  withCredentials: true, 
 });
 
 // ✅ Ye interceptor har request se pehle token attach karta hai

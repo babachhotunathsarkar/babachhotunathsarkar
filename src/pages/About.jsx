@@ -8,14 +8,14 @@ import ContactForm from '../components/ContactForm';
 
 const FadeInWhenVisible = ({ children, direction = 'up', delay = 0 }) => {
   const variants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: direction === 'up' ? 40 : direction === 'down' ? -40 : 0,
       x: direction === 'left' ? 40 : direction === 'right' ? -40 : 0
     },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
+    visible: {
+      opacity: 1,
+      y: 0,
       x: 0,
       transition: { duration: 0.8, delay, ease: [0.21, 0.47, 0.32, 0.98] }
     }
@@ -117,17 +117,17 @@ const About = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <SEO 
+      <SEO
         title="About Our Temple | Baba Chhotu Nath Sarkar"
         description="Discover the rich history and spiritual legacy of Shri Baba Chhotu Nath Temple in Badesra, Bhiwani. Learn about Baba Chhotu Nath Sarkar and our mission of service and devotion."
       />
       {/* Hero Section */}
       <section className="relative py-32 overflow-hidden bg-[#0a0a0a]">
         <div className="absolute inset-0 z-0 opacity-40">
-           <img src="/temple image.jpeg" alt="Background" className="w-full h-full object-cover blur-sm scale-110" />
-           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/60 to-black"></div>
+          <img src="/temple_image.jpeg" alt="Background" className="w-full h-full object-cover blur-sm scale-110" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/60 to-black"></div>
         </div>
-        
+
         <div className="container mx-auto px-4 relative z-10 text-center">
           <FadeInWhenVisible direction="down">
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
@@ -145,7 +145,7 @@ const About = () => {
       {/* Our Story Section */}
       <Section
         title="Our Story"
-        image="/temple image.jpeg"
+        image="/Temple.jpeg"
         imageLeft={false}
         content={(
           <>
@@ -215,7 +215,7 @@ const About = () => {
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Core Values</h2>
             <div className="w-24 h-1.5 bg-orange-500 mx-auto rounded-full"></div>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
               <FadeInWhenVisible key={index} delay={index * 0.1}>
@@ -232,81 +232,82 @@ const About = () => {
         </div>
       </section>
 
-      {/* Location Section */}
+      {/* Our Journey Timeline */}
       <section className="py-24 bg-white overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="bg-[#1a1a1a] rounded-[3rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row min-h-[600px]">
-            <div className="lg:w-1/2 p-12 md:p-16 flex flex-col justify-center text-white relative">
-              <div className="absolute top-0 right-0 w-80 h-80 bg-orange-600/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
-              
-              <FadeInWhenVisible direction="right">
-                <h2 className="text-4xl font-bold mb-10">Visit Us</h2>
-                
-                <div className="space-y-8">
-                  <div className="flex items-start gap-6 group">
-                    <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-orange-500/20 group-hover:border-orange-500/40 transition-all">
-                      <MapPin className="w-7 h-7 text-orange-500" />
-                    </div>
-                    <div>
-                      <p className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">Our Location</p>
-                      <p className="text-xl font-semibold leading-relaxed group-hover:text-orange-400 transition-colors">
-                        {getDynamicAddress()}
-                      </p>
+          <div className="text-center mb-20 text-stone-900">
+            <FadeInWhenVisible direction="down">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">पावन यात्रा <span className="text-orange-500">(Our Journey)</span></h2>
+              <div className="w-24 h-1.5 bg-orange-500 mx-auto rounded-full mb-8"></div>
+              <p className="text-stone-500 text-lg max-w-2xl mx-auto">
+                2010 से लेकर आज तक, श्रद्धा और सेवा का एक अटूट सफर।
+              </p>
+            </FadeInWhenVisible>
+          </div>
+
+          <div className="relative">
+            {/* Vertical Line */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-orange-100 rounded-full hidden md:block"></div>
+
+            <div className="space-y-24">
+              {[
+                {
+                  year: "2010",
+                  title: "नींव एवं स्थापना",
+                  engTitle: "Foundation",
+                  desc: "बाबा छोटू नाथ सरकार सेवा समिति की स्थापना बाडेसरा की पावन धरा पर की गई।",
+                  align: "left"
+                },
+                {
+                  year: "2015",
+                  title: "सेवा का विस्तार",
+                  engTitle: "Expansion",
+                  desc: "विशाल भंडारों और स्वास्थ्य शिविरों के माध्यम से जन-सेवा के कार्यों में वृद्धि हुई।",
+                  align: "right"
+                },
+                {
+                  year: "2020",
+                  title: "आध्यात्मिक चेतना",
+                  engTitle: "Spiritual Awakening",
+                  desc: "सत्संग और ध्यान शिविरों के जरिए भक्तों को आध्यात्मिक मार्गदर्शन प्रदान किया गया।",
+                  align: "left"
+                },
+                {
+                  year: "2024",
+                  title: "आधुनिक स्वरूप",
+                  engTitle: "Modern Era",
+                  desc: "मंदिर का भव्य नवीनीकरण और डिजिटल माध्यम से वैश्विक स्तर पर भक्तों का जुड़ाव।",
+                  align: "right"
+                }
+              ].map((item, index) => (
+                <div key={index} className={`flex flex-col md:flex-row items-center ${item.align === 'right' ? 'md:flex-row-reverse' : ''}`}>
+                  {/* Content Container */}
+                  <div className="w-full md:w-1/2 px-4 md:px-12">
+                    <FadeInWhenVisible direction={item.align === 'left' ? 'right' : 'left'}>
+                      <div className={`p-8 rounded-[2.5rem] bg-stone-50 border border-stone-100 shadow-xl hover:shadow-2xl transition-all relative group ${item.align === 'left' ? 'text-right' : 'text-left'}`}>
+                        <span className="text-6xl font-black text-orange-500/10 absolute top-4 right-8 group-hover:text-orange-500/20 transition-colors">
+                          {item.year}
+                        </span>
+                        <div className={`inline-block px-4 py-1 rounded-full bg-orange-100 text-orange-600 text-xs font-bold uppercase tracking-widest mb-4`}>
+                          {item.engTitle}
+                        </div>
+                        <h3 className="text-2xl font-bold text-stone-900 mb-3">{item.title}</h3>
+                        <p className="text-stone-600 leading-relaxed font-medium">{item.desc}</p>
+                      </div>
+                    </FadeInWhenVisible>
+                  </div>
+
+                  {/* Center Dot */}
+                  <div className="relative flex items-center justify-center my-8 md:my-0">
+                    <div className="w-12 h-12 rounded-full bg-orange-500 border-4 border-white shadow-lg z-10 flex items-center justify-center text-white scale-75 md:scale-100">
+                      <Heart className="w-5 h-5 fill-current" />
                     </div>
                   </div>
 
-                  {templeInfo?.phone && (
-                    <div className="flex items-center gap-6 group">
-                      <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-orange-500/20 group-hover:border-orange-500/40 transition-all">
-                        <Phone className="w-7 h-7 text-orange-500" />
-                      </div>
-                      <div>
-                        <p className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">Phone Number</p>
-                        <a href={`tel:${templeInfo.phone}`} className="text-xl font-semibold hover:text-orange-400 transition-colors">
-                          {templeInfo.phone}
-                        </a>
-                      </div>
-                    </div>
-                  )}
-
-                  {templeInfo?.email && (
-                    <div className="flex items-center gap-6 group">
-                      <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-orange-500/20 group-hover:border-orange-500/40 transition-all">
-                        <Mail className="w-7 h-7 text-orange-500" />
-                      </div>
-                      <div>
-                        <p className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">Email Address</p>
-                        <a href={`mailto:${templeInfo.email}`} className="text-xl font-semibold break-all hover:text-orange-400 transition-colors">
-                          {templeInfo.email}
-                        </a>
-                      </div>
-                    </div>
-                  )}
+                  {/* Spacer for MD screens */}
+                  <div className="hidden md:block w-1/2"></div>
                 </div>
-              </FadeInWhenVisible>
-            </div>
-            
-            <div className="lg:w-1/2 min-h-[400px] relative grayscale hover:grayscale-0 transition-all duration-700">
-               {templeInfo?.mapLink ? (
-                 <iframe 
-                   src={templeInfo.mapLink}
-                   width="100%" 
-                   height="100%" 
-                   style={{ border: 0 }} 
-                   allowFullScreen="" 
-                   loading="lazy" 
-                   referrerPolicy="no-referrer-when-downgrade"
-                   className="absolute inset-0 w-full h-full object-cover"
-                   title="Temple Location Map"
-                 ></iframe>
-               ) : (
-                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-900">
-                   <div className="w-24 h-24 bg-white/5 border border-white/10 rounded-3xl flex items-center justify-center mb-6">
-                      <MapPin className="w-12 h-12 text-orange-500" />
-                   </div>
-                   <p className="text-gray-400 font-bold uppercase tracking-widest">Location Map</p>
-                 </div>
-               )}
+              ))}
             </div>
           </div>
         </div>
@@ -316,7 +317,7 @@ const About = () => {
       <section className="py-24 bg-stone-900 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-orange-600/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
         <div className="absolute bottom-0 left-0 w-72 h-72 bg-blue-600/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
-        
+
         <div className="container mx-auto px-4 max-w-4xl relative z-10">
           <div className="text-center mb-16">
             <FadeInWhenVisible direction="down">

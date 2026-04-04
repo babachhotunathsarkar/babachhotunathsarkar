@@ -1,6 +1,7 @@
 // src/components/ProtectedRoute.jsx
 import { Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Loader from './Loader';
 
 export const AdminProtected = () => {
   const { user, token, isLoading } = useSelector((state) => state.auth);
@@ -19,11 +20,7 @@ export const AdminProtected = () => {
   const activeUser = user || localUser;
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
-      </div>
-    );
+    return <Loader fullScreen={true} />;
   }
 
   if (!activeToken || !activeUser) {
@@ -53,11 +50,7 @@ export const UserProtected = () => {
   const activeUser = user || localUser;
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
-      </div>
-    );
+    return <Loader fullScreen={true} />;
   }
 
   if (!activeToken || !activeUser) {
@@ -87,11 +80,7 @@ export const ProtectedRoute = ({ allowedRoles = [] }) => {
   const activeUser = user || localUser;
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
-      </div>
-    );
+    return <Loader fullScreen={true} />;
   }
 
   if (!activeToken || !activeUser) {

@@ -22,13 +22,13 @@ export default function Login() {
 
     try {
       const result = await dispatch(loginUser({ email, password })).unwrap();
-      
+
       console.log('Login Response:', result);
-      
+
       // Extract user data from nested structure
       let userData = null;
       let userRole = null;
-      
+
       if (result.data && result.data.user) {
         // API returns { statusCode, message, data: { user, JwtToken } }
         userData = result.data.user;
@@ -43,17 +43,17 @@ export default function Login() {
         userRole = result.role;
         console.log('Found user directly in result:', userData);
       }
-      
+
       console.log('Detected user role:', userRole);
-      
-     if (userRole === 'admin') {
-  toast.success('Welcome Admin!');
-  
-  navigate('/admin', { replace: true });
-} else {
-  toast.success('Login Successful!');
-  navigate('/userdashboard', { replace: true });
-}
+
+      if (userRole === 'admin') {
+        toast.success('Welcome Admin!');
+
+        navigate('/admin', { replace: true });
+      } else {
+        toast.success('Login Successful!');
+        navigate('/userdashboard', { replace: true });
+      }
     } catch (err) {
       console.error('Login error:', err);
       let errorMessage = '';
@@ -66,7 +66,7 @@ export default function Login() {
       } else {
         errorMessage = 'Login failed. Please try again.';
       }
-      
+
       setError(errorMessage);
       toast.error(errorMessage);
     } finally {
@@ -86,10 +86,6 @@ export default function Login() {
             <p className="text-gray-500 mt-2">Access your account</p>
           </div>
 
-          <div className="bg-orange-50 rounded-xl p-4 mb-6">
-            <p className="text-sm text-orange-700 font-medium mb-2">Demo Credentials:</p>
-            <p className="text-xs text-orange-600">Admin: psharma93167@gmail.com / your_password</p>
-          </div>
 
           {error && (
             <div className="bg-red-50 text-red-600 px-4 py-3 rounded-xl mb-6 text-sm">

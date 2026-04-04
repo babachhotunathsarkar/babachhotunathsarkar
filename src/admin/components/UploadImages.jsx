@@ -42,7 +42,9 @@ const LotusDivider = () => (
 
 // ── Portal Modal wrapper — React DOM se bahar render hoga, conflict nahi hoga ──
 const Modal = ({ children }) => createPortal(
-  children,
+  <div translate="no" className="notranslate">
+    {children}
+  </div>,
   document.body
 );
 
@@ -488,11 +490,11 @@ export default function UploadImages() {
                 <button onClick={handleUploadSubmit} disabled={uploading}
                   className="flex-1 py-2.5 text-sm bg-gradient-to-r from-[#C2410C] to-[#EA580C] text-white rounded-xl hover:opacity-90 transition-all disabled:opacity-60 flex items-center justify-center gap-2 font-sans shadow-md">
                   {uploading ? (
-                    <span className="flex items-center gap-2">
+                    <span className="flex items-center gap-2" key="uploading-state">
                       <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> Uploading…
                     </span>
                   ) : (
-                    <span className="flex items-center gap-2">
+                    <span className="flex items-center gap-2" key="normal-state">
                       <Check className="w-4 h-4" /> Upload {files.length > 0 ? `(${files.length})` : ''}
                     </span>
                   )}

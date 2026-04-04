@@ -520,7 +520,7 @@ export default function UploadVideos() {
 
       {/* Upload Modal */}
       {showUpload && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={closeUploadModal}>
+        <div translate="no" className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 notranslate" onClick={closeUploadModal}>
           <div className="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
             <div className="sticky top-0 bg-white border-b p-6 flex justify-between items-center">
               <h2 className="text-2xl font-bold text-gray-800">Upload Videos</h2>
@@ -628,13 +628,17 @@ export default function UploadVideos() {
               >
                 Cancel
               </button>
-              <button
-                onClick={handleUploadSubmit}
-                disabled={uploading || files.length === 0}
-                className="flex-1 px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {uploading ? 'Uploading...' : `Upload ${files.length} Video(s)`}
-              </button>
+                <button
+                  onClick={handleUploadSubmit}
+                  disabled={uploading || files.length === 0}
+                  className="flex-1 px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {uploading ? (
+                    <span key="vid-uploading" translate="no" className="notranslate">Uploading...</span>
+                  ) : (
+                    <span key="vid-ready">Upload {files.length} Video(s)</span>
+                  )}
+                </button>
             </div>
           </div>
         </div>

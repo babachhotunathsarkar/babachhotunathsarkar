@@ -12,6 +12,7 @@ import DashboardSidebar     from '../components/dashboard/DashboardSidebar'
 import DashboardOverview    from '../components/dashboard/DashboardOverview'
 import DashboardDonations   from '../components/dashboard/DashboardDonations'
 import UpdateProfile        from '../components/dashboard/UpdateProfile'
+import Loader               from '../components/Loader'
 
 // ── Placeholder tabs (you can make separate components later) ─────────
 import { Calendar, Star, Link, Ticket, MapPin, Clock, User } from 'lucide-react'
@@ -52,14 +53,7 @@ export default function UserDashboard() {
 
   // ── Loading ──
   if (isLoading && !user) {
-    return (
-      <div className="min-h-screen bg-amber-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-gray-600 font-medium">Loading...</p>
-        </div>
-      </div>
-    )
+    return <Loader fullScreen={true} />
   }
 
   return (
@@ -272,11 +266,7 @@ function BookingsTab({ user }) {
   const isLoading = darbarLoading || appointmentsLoading;
 
   if (isLoading && !latestUserBooking && !myAppointments.length) {
-    return (
-      <div className="flex justify-center py-20">
-        <div className="w-10 h-10 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
+    return <Loader fullScreen={false} />
   }
 
   return (

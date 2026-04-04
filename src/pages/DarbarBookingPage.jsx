@@ -43,7 +43,7 @@ const DarbarBookingPage = () => {
   }, [dispatch]);
 
   const checkBookingOpen = () => {
-    const now = moment();
+    const now = moment().utcOffset("+05:30");
     let open = false;
     // Sat >= 4 PM
     if (now.day() === 6 && now.hour() >= 16) {

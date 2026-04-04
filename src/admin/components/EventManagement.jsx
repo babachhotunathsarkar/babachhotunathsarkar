@@ -316,7 +316,7 @@ export default function EventManagement() {
 
       {/* FORM MODAL */}
       {showForm && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center z-50 p-0 sm:p-4"
+        <div translate="no" className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center z-50 p-0 sm:p-4 notranslate"
           onClick={(e) => { if (e.target === e.currentTarget) setShowForm(false); }}>
           <div className="bg-white rounded-t-3xl sm:rounded-3xl w-full sm:max-w-lg shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
             <div className="relative bg-gradient-to-r from-[#0D0500] via-[#3b0764] to-[#581c87] px-6 py-5 flex items-center justify-between sticky top-0 z-10">
@@ -372,9 +372,13 @@ export default function EventManagement() {
               <div className="flex gap-3 pt-1">
                 <button onClick={() => setShowForm(false)} className="flex-1 py-2.5 text-sm border border-stone-200 rounded-xl hover:bg-stone-50 font-sans text-gray-700">Cancel</button>
                 <button onClick={handleSubmit} disabled={isLoading}
-                  className="flex-1 py-2.5 text-sm bg-gradient-to-r from-[#581c87] to-[#7e22ce] text-white rounded-xl font-sans font-semibold shadow-md hover:opacity-90 transition-opacity disabled:opacity-60">
-                  {isLoading ? 'Saving…' : editItem ? 'Update' : 'Create'}
-                </button>
+                   className="flex-1 py-2.5 text-sm bg-gradient-to-r from-[#581c87] to-[#7e22ce] text-white rounded-xl font-sans font-semibold shadow-md hover:opacity-90 transition-opacity disabled:opacity-60">
+                   {isLoading ? (
+                     <span key="ev-saving" translate="no" className="notranslate">Saving…</span>
+                   ) : (
+                     <span key="ev-ready">{editItem ? 'Update' : 'Create'}</span>
+                   )}
+                 </button>
               </div>
             </div>
           </div>

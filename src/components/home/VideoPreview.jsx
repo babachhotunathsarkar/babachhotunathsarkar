@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { ArrowRight, Play, X, Loader } from 'lucide-react';
+import { ArrowRight, Play, X, Loader as LucideLoader } from 'lucide-react';
+import Loader from '../Loader';
 import { getAllVideos } from '../../redux/videos/videoSlice';
 
 export default function VideoPreview() {
@@ -25,9 +26,7 @@ export default function VideoPreview() {
   if (isLoading) {
     return (
       <section className="py-12 sm:py-16 md:py-20 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 text-center">
-          <Loader className="w-12 h-12 text-orange-500 animate-spin mx-auto" />
-        </div>
+        <Loader fullScreen={false} />
       </section>
     );
   }

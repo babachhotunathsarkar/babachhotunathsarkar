@@ -3,37 +3,31 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Play, ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
-// Import images from public/CarsoleImage folder
-import firstImage from '../../../public/CarsoleImage/bothtemple.png'
-import secondImage from '../../../public/CarsoleImage/darbar.jpeg'
-import thirdImage from '../../../public/CarsoleImage/bothtemple.png'
-import fourthImage from '../../../public/CarsoleImage/darbar.jpeg'
-
 const carouselSlides = [
   {
     id: 1,
-    image: firstImage,
+    image: "/CarsoleImage/bothtemple.png",
     title: "जय श्री बाबा छोटु नाथ जी",
     subtitle: "श्रद्धा, भक्ति एवं सेवा का पावन संगम",
     tag: "प्राचीन सिद्ध पीठ"
   },
   {
     id: 2,
-    image: secondImage,
+    image: "/CarsoleImage/darbar.jpeg",
     title: "दिव्य दरबार",
     subtitle: "मानवता की सेवा ही परम धर्म है",
     tag: "शांति एवं अध्यात्म"
   },
   {
     id: 3,
-    image: thirdImage,
+    image: "/CarsoleImage/bothtemple.png",
     title: "भव्य मंदिर परिसर",
     subtitle: "सत्यम शिवम सुंदरम",
     tag: "दिव्य दर्शन"
   },
   {
     id: 4,
-    image: fourthImage,
+    image: "/CarsoleImage/darbar.jpeg",
     title: "अमृतमयी सत्संग",
     subtitle: "गुरु सेवा ही मुक्ति का मार्ग है",
     tag: "सत्संग महिमा"
@@ -126,7 +120,7 @@ export default function HeroSection() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7, duration: 0.8 }}
-                className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-8 tracking-tight drop-shadow-2xl leading-tight"
+                className="text-3xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-8 tracking-tight drop-shadow-2xl leading-tight"
               >
                 {carouselSlides[currentSlide].title}
               </motion.h1>

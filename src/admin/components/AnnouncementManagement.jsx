@@ -110,7 +110,7 @@ const AnnouncementManagement = () => {
 
         {/* Add/Edit Form Modal - Responsive */}
         {showForm && (
-          <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4">
+          <div translate="no" className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4 notranslate">
             <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg md:max-w-2xl max-h-[95vh] overflow-hidden">
               
               {/* Modal Header */}
@@ -183,13 +183,17 @@ const AnnouncementManagement = () => {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 pt-6">
-                  <button
-                    type="submit"
-                    disabled={isLoading}
-                    className="flex-1 bg-gradient-to-r from-orange-600 to-amber-600 text-white py-4 rounded-xl font-bold text-lg hover:from-orange-700 hover:to-amber-700 disabled:opacity-70 transition-all"
-                  >
-                    {isLoading ? 'Processing...' : isEditing ? 'Update' : 'Create'}
-                  </button>
+                    <button
+                      type="submit"
+                      disabled={isLoading}
+                      className="flex-1 bg-gradient-to-r from-orange-600 to-amber-600 text-white py-4 rounded-xl font-bold text-lg hover:from-orange-700 hover:to-amber-700 disabled:opacity-70 transition-all"
+                    >
+                      {isLoading ? (
+                        <span key="ann-proc" translate="no" className="notranslate">Processing...</span>
+                      ) : (
+                        <span key="ann-ready">{isEditing ? 'Update' : 'Create'}</span>
+                      )}
+                    </button>
                   <button
                     type="button"
                     onClick={() => setShowForm(false)}
