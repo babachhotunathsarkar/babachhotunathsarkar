@@ -34,26 +34,26 @@ export default function Darshan() {
   const addressObj = addresses && addresses.length > 0 ? addresses[0] : null;
   const addressText = addressObj
     ? [addressObj.village, addressObj.city, addressObj.state].filter(Boolean).join(', ')
-    : "बाडेसरा, भिवानी, हरियाणा";
+    : "बडेसरा, भिवानी, हरियाणा";
 
   return (
     <div className="min-h-screen bg-stone-50">
-      <SEO 
+      <SEO
         title="दिव्य दर्शन | Darshan"
         description="Shri Baba Chhotu Nath Temple Darshan - Experience the divine presence of Baba Chhotu Nath Sarkar (Darbar) through our official darshan page."
       />
 
       {/* Hero Section */}
       <section className="relative h-[60vh] sm:h-[70vh] flex items-center justify-center overflow-hidden bg-black">
-        <motion.div 
+        <motion.div
           initial={{ scale: 1.1, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1.5 }}
           className="absolute inset-0"
         >
-          <img 
-            src={darbarImage} 
-            alt="Divya Darbar" 
+          <img
+            src={darbarImage}
+            alt="Divya Darbar"
             className="w-full h-full object-cover opacity-60"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-stone-900 via-transparent to-black/40"></div>
@@ -66,7 +66,7 @@ export default function Darshan() {
             transition={{ delay: 0.5, duration: 0.8 }}
           >
             <span className="inline-block px-4 py-1.5 rounded-full bg-orange-600 text-white text-xs sm:text-sm font-bold uppercase tracking-widest mb-6 border border-orange-400/30">
-              सिद्ध समाधि स्थल
+              सिद्ध दिव्य दरबार
             </span>
             <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold text-white mb-6 drop-shadow-2xl">
               दिव्य दरबार दर्शन
@@ -82,7 +82,7 @@ export default function Darshan() {
       <section className="py-20 -mt-12 relative z-20">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div 
+            <motion.div
               initial={{ x: -50, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               viewport={{ once: true }}
@@ -92,10 +92,10 @@ export default function Darshan() {
                 <Heart className="w-8 h-8 fill-current" />
               </div>
               <div>
-                <h2 className="text-3xl sm:text-4xl font-bold text-stone-900 mb-6">श्री दरबार साहिब</h2>
+                <h2 className="text-3xl sm:text-4xl font-bold text-stone-900 mb-6">श्री बाबा छोटु नाथ जी</h2>
                 <div className="space-y-4 text-stone-600 leading-relaxed text-lg">
                   <p>
-                    बाबा छोटु नाथ महाराज का यह समाधि स्थल (दरबार) अनंत शांति और ऊर्जा का केंद्र है। यहाँ आने वाले हर भक्त को हृदय की गहराई में आध्यात्मिक संतोष की अनुभूति होती है।
+                    बाबा छोटु नाथ महाराज का यह दरबार अनंत शांति और ऊर्जा का केंद्र है। यहाँ आने वाले हर भक्त को हृदय की गहराई में आध्यात्मिक संतोष की अनुभूति होती है।
                   </p>
                   <p>
                     मान्यता है कि यहाँ सच्चे मन से की गई प्रार्थना कभी निष्फल नहीं होती। बाबा का आशीर्वाद भक्त के जीवन के हर अंधकार को मिटा देता है।
@@ -118,15 +118,15 @@ export default function Darshan() {
               </div>
             </motion.div>
 
-            <motion.div 
-               initial={{ x: 50, opacity: 0 }}
-               whileInView={{ x: 0, opacity: 1 }}
-               viewport={{ once: true }}
-               className="relative lg:h-[600px] rounded-[3rem] overflow-hidden shadow-2xl group"
+            <motion.div
+              initial={{ x: 50, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              className="relative lg:h-[600px] rounded-[3rem] overflow-hidden shadow-2xl group"
             >
-              <img 
-                src={darbarImage} 
-                alt="Main Darbar Detail" 
+              <img
+                src={darbarImage}
+                alt="Main Darbar Detail"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-orange-900/40 to-transparent"></div>
@@ -140,21 +140,21 @@ export default function Darshan() {
         <div className="absolute top-0 right-0 w-1/2 h-full bg-orange-600/10 blur-[120px] rounded-full translate-x-1/2"></div>
         <div className="container mx-auto px-4 max-w-4xl relative z-10">
           <div className="text-center mb-12">
-             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">मंगल आरती दर्शन</h2>
-             <p className="text-stone-400">दैनिक आरती एवं दिव्य दर्शन विडियो</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">मंगल आरती दर्शन</h2>
+            <p className="text-stone-400">दैनिक आरती एवं दिव्य दर्शन विडियो</p>
           </div>
-          
-          <motion.div 
+
+          <motion.div
             initial={{ scale: 0.95, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true }}
             className="aspect-video bg-stone-800 rounded-[2rem] overflow-hidden shadow-2xl border border-stone-700 group relative"
           >
             {/* Native Video Player for Local Video */}
-            <video 
-               className="w-full h-full object-cover"
-               controls
-               poster={darbarImage}
+            <video
+              className="w-full h-full object-cover"
+              controls
+              poster={darbarImage}
             >
               <source src="/Videos/aarti.mp4" type="video/mp4" />
               Your browser does not support the video tag.
@@ -172,7 +172,7 @@ export default function Darshan() {
               { icon: Calendar, title: "विशेष दिन", detail: specialDaysText },
               { icon: MapPin, title: "स्थान", detail: addressText }
             ].map((info, idx) => (
-              <motion.div 
+              <motion.div
                 key={idx}
                 whileHover={{ y: -10 }}
                 className="bg-white p-8 rounded-3xl text-center border border-stone-100 shadow-lg"
