@@ -168,7 +168,16 @@ export default function UploadVideos() {
       }
 
       setUploadProgress(100);
-      toast.success(result.message || `${files.length} video(s) uploaded successfully!`);
+      const successCount = result.data?.length || 0;
+      const errorCount = result.errors?.length || 0;
+
+      if (errorCount > 0) {
+        toast.warning(`${successCount} uploaded, ${errorCount} failed. Check console.`);
+        console.error('Video upload errors:', result.errors);
+      } else {
+        toast.success(result.message || `${successCount} video(s) uploaded successfully!`);
+      }
+      
       closeUploadModal();
       fetchVideos();
     } catch (error) {

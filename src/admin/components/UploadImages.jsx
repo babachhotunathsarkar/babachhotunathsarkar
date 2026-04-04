@@ -130,7 +130,16 @@ export default function UploadImages() {
 
     try {
       const res = await dispatch(uploadMultipalImage(fd)).unwrap();
-      toast.success(res.message || `${files.length} image(s) uploaded!`);
+      const successCount = res.data?.length || 0;
+      const errorCount = res.errors?.length || 0;
+      
+      if (errorCount > 0) {
+        toast.warning(`${successCount} uploaded, ${errorCount} failed. Check console for details.`);
+        console.error('Upload errors:', res.errors);
+      } else {
+        toast.success(res.message || `${successCount} image(s) uploaded!`);
+      }
+      
       closeUploadModal();
       refetch();
     } catch (err) {

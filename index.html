@@ -2,8 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="google-site-verification" content="y8qh1YP3CbqL3IITWTCBnqPoNZ9c5PRlaKtA0GM9Vq0" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Shri Baba Chhotu Nath Temple (Badesra, Bhiwani) - A sacred spiritual center dedicated to devotion, service, and the teachings of Baba Chhotu Nath Sarkar." />
     <meta name="keywords" content="babachhotunathsarkar, babachhotunathsarkarsewasamiti, temple, hindu temple, bhiwnai distric temple, badesra temple, baba chhotunath temple, baba temple" />
@@ -44,7 +45,9 @@
       // to '/en/hi' if no language preference is already set.
       (function() {
         const langCookie = document.cookie.split('; ').find(row => row.startsWith('googtrans='));
-        if (!langCookie) {
+        const isBot = /bot|googlebot|crawler|spider|slurp|facebookexternalhit/i.test(navigator.userAgent);
+        
+        if (!langCookie && !isBot) {
           // Set cookie for Hindi by default
           document.cookie = 'googtrans=/en/hi; path=/';
           // Reload to apply the translation on the first visit
