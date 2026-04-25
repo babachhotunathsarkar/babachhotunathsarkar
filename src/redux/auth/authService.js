@@ -31,16 +31,40 @@ const login = async (userData) => {
   };
 };
 
-// Logout
-const logout = () => {
-  localStorage.removeItem('user');
-  localStorage.removeItem('token');
+// Forgot Password - Send OTP
+const forgotPassword = async (email) => {
+  const response = await axiosInstance.post('/users/forgot-password', { email });
+  return response.data;
+};
+
+// Verify OTP
+const verifyOtp = async (email, otp) => {
+  const response = await axiosInstance.post('/users/verify-otp', { email, otp });
+  // This returns { success, message, userId, token }
+  if (response.data.success && response.data.token) {
+    localStorage.setItem('resetToken', response.data.token);
+  }
+  return response.data;
+};
+
+// Reset Password (Final Step)
+const resetPassword = async (password) => {
+  const token = localStorage.getItem('resetToken');
+  const response = await axiosInstance.post('/users/forgot-password-reset', { password }, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  if (response.data.success) {
+    localStorage.removeItem('resetToken');
+  }
+  return response.data;
 };
 
 const authService = {
   register,
   login,
-  logout,
+  forgotPassword,
+  verifyOtp,
+  resetPassword,
 };
 
 export default authService;

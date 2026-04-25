@@ -6,7 +6,9 @@ const getAll   = async (params = {}) => {
   if (params.limit)    q.append('limit',    params.limit);
   if (params.search)   q.append('search',   params.search);
   if (params.category && params.category !== 'all') q.append('category', params.category);
-  return (await axiosInstance.get(`/events/admin/all${q.toString() ? `?${q}` : ''}`)).data;
+  
+  const endpoint = params.isAdmin ? '/events/admin/all' : '/events';
+  return (await axiosInstance.get(`${endpoint}${q.toString() ? `?${q}` : ''}`)).data;
 };
 const create   = async (data)     => (await axiosInstance.post('/events/admin', data)).data;
 const update   = async (id, data) => (await axiosInstance.put(`/events/admin/${id}`, data)).data;

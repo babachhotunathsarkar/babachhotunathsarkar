@@ -79,8 +79,8 @@ export default function Login() {
       <div className="w-full max-w-md">
         <div className="bg-white rounded-2xl shadow-xl p-8">
           <div className="text-center mb-8">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center mx-auto mb-4">
-              <span className="text-white font-bold text-2xl">ॐ</span>
+            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-orange-500 shadow-md flex items-center justify-center mx-auto mb-4 bg-white">
+              <img src="/logo.jpeg" alt="Logo" className="w-full h-full object-cover" />
             </div>
             <h1 className="text-2xl font-bold text-gray-900">Login</h1>
             <p className="text-gray-500 mt-2">Access your account</p>
@@ -143,9 +143,9 @@ export default function Login() {
                 />
                 <span className="text-sm text-gray-600">Remember Me</span>
               </label>
-              <a href="#" className="text-sm text-orange-600 hover:text-orange-700">
+              <Link to="/forgot-password" size={14} className="text-sm text-orange-600 hover:text-orange-700 font-medium">
                 Forgot Password?
-              </a>
+              </Link>
             </div>
 
             <button

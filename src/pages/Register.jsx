@@ -85,8 +85,8 @@ export default function Register() {
       <div className="w-full max-w-md">
         <div className="bg-white rounded-2xl shadow-xl p-8">
           <div className="text-center mb-8">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center mx-auto mb-4">
-              <span className="text-white font-bold text-2xl">ॐ</span>
+            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-orange-500 shadow-md flex items-center justify-center mx-auto mb-4 bg-white">
+              <img src="/logo.jpeg" alt="Logo" className="w-full h-full object-cover" />
             </div>
             <h1 className="text-2xl font-bold text-gray-900">Register</h1>
             <p className="text-gray-500 mt-2">Create a new account</p>

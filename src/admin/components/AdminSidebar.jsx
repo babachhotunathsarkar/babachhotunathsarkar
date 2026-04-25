@@ -16,7 +16,11 @@ import {
   Clock,
   Sun,
   Star,
-  Calendar
+  Calendar,
+  BarChart2,
+  IndianRupee,
+  FileText,
+  Users
 } from 'lucide-react';
 import { logoutUser } from '../../redux/auth/authSlice';
 
@@ -27,7 +31,6 @@ export default function AdminSidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [hoveredItem, setHoveredItem] = useState(null);
 
-  // Load collapsed state from localStorage
   useEffect(() => {
     const savedState = localStorage.getItem('adminSidebarCollapsed');
     if (savedState !== null) {
@@ -35,7 +38,6 @@ export default function AdminSidebar() {
     }
   }, []);
 
-  // Save collapsed state
   const toggleCollapse = () => {
     const newState = !isCollapsed;
     setIsCollapsed(newState);
@@ -47,103 +49,117 @@ export default function AdminSidebar() {
     navigate('/login');
   };
 
-  const navItems = [
-    { to: '/admin', icon: LayoutDashboard, label: 'Dashboard' },
-    { to: '/admin/marquee', icon: AlignLeft, label: 'Marquee Messages' },
-    { to: '/admin/upload-images', icon: Image, label: 'Upload Images' },
-    { to: '/admin/upload-videos', icon: Video, label: 'Upload Videos' },
-    { to: '/admin/announcements', icon: Bell, label: 'Announcements' },
-    { to: '/admin/address', icon: MapPin, label: 'Addresses' },
-    { to: '/admin/schedules', icon: Clock, label: 'Daily Schedule' },
-    { to: '/admin/timings', icon: Sun, label: 'Temple Timings' },
-    { to: '/admin/special-days', icon: Star, label: 'Special Days' },
-    { to: '/admin/darbar-bookings', icon: Calendar, label: 'Darbar Bookings' },
+  const menuSections = [
+    {
+      title: 'मुख्य (Main)',
+      items: [
+        { to: '/admin', icon: LayoutDashboard, label: 'Dashboard' },
+        { to: '/admin/analytics', icon: BarChart2, label: 'Analytics' },
+      ]
+    },
+    {
+      title: 'सामग्री (Content)',
+      items: [
+        { to: '/admin/marquee', icon: AlignLeft, label: 'Marquee' },
+        { to: '/admin/announcements', icon: Bell, label: 'Announcements' },
+        { to: '/admin/upload-images', icon: Image, label: 'Images' },
+        { to: '/admin/upload-videos', icon: Video, label: 'Videos' },
+        { to: '/admin/page-content', icon: FileText, label: 'Pages' },
+      ]
+    },
+    {
+      title: 'प्रबंधन (Management)',
+      items: [
+        { to: '/admin/events', icon: Calendar, label: 'Events' },
+        { to: '/admin/special-days', icon: Star, label: 'Special Days' },
+        { to: '/admin/schedules', icon: Clock, label: 'Schedules' },
+        { to: '/admin/timings', icon: Sun, label: 'Timings' },
+        { to: '/admin/donation-settings', icon: IndianRupee, label: 'Donations' },
+        { to: '/admin/address', icon: MapPin, label: 'Addresses' },
+        { to: '/admin/users', icon: Users, label: 'Users' },
+      ]
+    }
   ];
 
   return (
     <div 
-      className={`relative bg-white shadow-lg transition-all duration-300 h-full ${
-        isCollapsed ? 'w-20' : 'w-64'
+      className={`relative bg-white text-gray-700 shadow-xl transition-all duration-500 h-full flex flex-col ${
+        isCollapsed ? 'w-20' : 'w-72'
       }`}
     >
       {/* Toggle Button */}
       <button
         onClick={toggleCollapse}
-        className="absolute -right-3 top-20 bg-orange-500 text-white rounded-full p-1 shadow-lg hover:bg-orange-600 transition-all z-20"
+        className="absolute -right-3 top-20 bg-orange-500 text-white rounded-full p-1.5 shadow-xl hover:bg-orange-600 hover:scale-110 transition-all z-50 border-2 border-white"
       >
-        {isCollapsed ? (
-          <ChevronRight className="w-4 h-4" />
-        ) : (
-          <ChevronLeft className="w-4 h-4" />
-        )}
+        {isCollapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
       </button>
 
       {/* Logo Section */}
-      <div className={`p-6 py-5 border-b border-gray-200 flex items-center ${isCollapsed ? 'justify-center px-4' : 'justify-center lg:justify-start'}`}>
-        <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-orange-500 flex-shrink-0 shadow-md">
-          <img src="/logo.jpeg" alt="Logo" className="w-full h-full object-cover" />
+      <div className={`p-8 border-b border-gray-100 flex items-center justify-center transition-all ${isCollapsed ? 'px-4' : ''}`}>
+        <div className={`rounded-2xl overflow-hidden border-2 border-orange-500 shadow-md bg-white p-1 transition-all ${isCollapsed ? 'w-12 h-12' : 'w-16 h-16'}`}>
+          <img src="/logo.jpeg" alt="Logo" className="w-full h-full object-cover rounded-xl" />
         </div>
       </div>
 
       {/* Navigation */}
-      <nav className="mt-6 space-y-1">
-        {navItems.map((item) => (
-          <div
-            key={item.to}
-            className="relative group"
-            onMouseEnter={() => setHoveredItem(item.to)}
-            onMouseLeave={() => setHoveredItem(null)}
-          >
-            <NavLink
-              to={item.to}
-              className={({ isActive }) =>
-                `flex items-center ${isCollapsed ? 'justify-center' : 'justify-start space-x-3'} px-6 py-3 text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors ${
-                  isActive ? 'bg-orange-50 text-orange-600 border-r-4 border-orange-600' : ''
-                }`
-              }
-            >
-              <item.icon className={`w-5 h-5 ${isCollapsed ? '' : ''}`} />
-              {!isCollapsed && (
-                <span className="transition-opacity duration-300 whitespace-nowrap">
-                  {item.label}
-                </span>
-              )}
-            </NavLink>
-            
-            {/* Tooltip for collapsed state - Fixed position */}
-            {isCollapsed && (
-              <div className={`absolute left-full top-1/2 transform -translate-y-1/2 ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded whitespace-nowrap z-50 pointer-events-none transition-opacity duration-200 ${
-                hoveredItem === item.to ? 'opacity-100 visible' : 'opacity-0 invisible'
-              }`}>
-                {item.label}
-              </div>
+      <nav className="flex-1 mt-6 px-3 space-y-8 overflow-y-auto no-scrollbar">
+        {menuSections.map((section, sIdx) => (
+          <div key={sIdx} className="space-y-2">
+            {!isCollapsed && (
+              <h3 className="px-4 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-3">
+                {section.title}
+              </h3>
             )}
+            <div className="space-y-1">
+              {section.items.map((item) => (
+                <div
+                  key={item.to}
+                  className="relative"
+                  onMouseEnter={() => setHoveredItem(item.to)}
+                  onMouseLeave={() => setHoveredItem(null)}
+                >
+                  <NavLink
+                    to={item.to}
+                    className={({ isActive }) =>
+                      `flex items-center ${isCollapsed ? 'justify-center' : 'justify-start gap-4'} px-4 py-3 rounded-xl transition-all duration-300 group ${
+                        isActive 
+                        ? 'bg-orange-50 text-orange-600 font-bold border-r-4 border-orange-500 rounded-r-none' 
+                        : 'hover:bg-orange-50/50 hover:text-orange-500'
+                      }`
+                    }
+                  >
+                    {({ isActive }) => (
+                      <>
+                        <div className={`transition-all duration-300 ${isActive ? 'scale-110 text-orange-600' : 'text-gray-400 group-hover:text-orange-500'}`}>
+                          <item.icon className="w-5 h-5" />
+                        </div>
+                        {!isCollapsed && <span className="text-sm tracking-tight">{item.label}</span>}
+                      </>
+                    )}
+                  </NavLink>
+                  
+                  {isCollapsed && hoveredItem === item.to && (
+                    <div className="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-2 bg-gray-900 text-white text-xs font-bold rounded-lg shadow-2xl z-[100] animate-in fade-in slide-in-from-left-2">
+                      {item.label}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         ))}
       </nav>
 
-      {/* Logout Button */}
-      <div className={`absolute bottom-0 ${isCollapsed ? 'left-0 right-0' : 'w-full'} p-6 border-t border-gray-200`}>
-        <div className="relative group">
-          <button
-            onClick={handleLogout}
-            className={`flex items-center ${isCollapsed ? 'justify-center w-full' : 'space-x-3'} text-gray-700 hover:text-red-600 transition-colors w-full`}
-            onMouseEnter={() => setHoveredItem('logout')}
-            onMouseLeave={() => setHoveredItem(null)}
-          >
-            <LogOut className={`w-5 h-5 ${isCollapsed ? 'mx-auto' : ''}`} />
-            {!isCollapsed && <span>Logout</span>}
-          </button>
-          
-          {/* Tooltip for logout when collapsed */}
-          {isCollapsed && (
-            <div className={`absolute left-full top-1/2 transform -translate-y-1/2 ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded whitespace-nowrap z-50 transition-opacity duration-200 ${
-              hoveredItem === 'logout' ? 'opacity-100 visible' : 'opacity-0 invisible'
-            }`}>
-              Logout
-            </div>
-          )}
-        </div>
+      {/* User / Logout */}
+      <div className="p-4 border-t border-gray-100 bg-gray-50/50">
+        <button
+          onClick={handleLogout}
+          className={`flex items-center gap-4 px-4 py-4 rounded-xl text-gray-500 hover:bg-red-50 hover:text-red-500 transition-all w-full group ${isCollapsed ? 'justify-center' : ''}`}
+        >
+          <LogOut className="w-5 h-5 group-hover:-rotate-12 transition-transform" />
+          {!isCollapsed && <span className="text-sm font-bold">Sign Out</span>}
+        </button>
       </div>
     </div>
   );

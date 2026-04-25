@@ -4,6 +4,7 @@ import NewsSection from "../components/home/NewsSection";
 import HomeProgramSection from "../components/home/HomeProgramSection";
 import UpcomingEvents from "../components/home/UpcomingEvents";
 import DonationSection from "../components/home/DonationSection";
+import YouTubePromo from "../components/home/YouTubePromo";
 import SEO from "../components/SEO";
 
 export default function Home() {
@@ -19,8 +20,10 @@ export default function Home() {
 
       <div className="space-y-0">
         <HomeProgramSection />
-        {/* <UpcomingEvents /> */}
-        {/* <DonationSection /> */}
+
+        <YouTubePromo />
+
+
       </div>
     </div>
   );

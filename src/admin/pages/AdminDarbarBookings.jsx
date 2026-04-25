@@ -7,6 +7,7 @@ const AdminDarbarBookings = () => {
     const { bookings, loading, error, successMessage } = useSelector((state) => state.darbarBooking);
     const [dateFilter, setDateFilter] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
+    const [activeTab, setActiveTab] = useState('new'); // 'new' or 'previous'
 
     useEffect(() => {
         dispatch(getAllBookingsAdmin(dateFilter));
@@ -24,7 +25,20 @@ const AdminDarbarBookings = () => {
         }
     };
 
-    const filteredBookings = bookings.filter(b =>
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const segregatedBookings = bookings.filter(b => {
+        const bDate = new Date(b.darbarDate);
+        bDate.setHours(0, 0, 0, 0);
+        if (activeTab === 'new') {
+            return bDate >= today;
+        } else {
+            return bDate < today;
+        }
+    });
+
+    const filteredBookings = segregatedBookings.filter(b =>
         b.devoteeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         b.phoneNumber.includes(searchTerm) ||
         b.tokenNumber.toString().includes(searchTerm)
@@ -53,6 +67,29 @@ const AdminDarbarBookings = () => {
                     {error}
                 </div>
             )}
+
+            <div className="flex border-b border-gray-200 mb-6">
+                <button
+                    onClick={() => setActiveTab('new')}
+                    className={`py-3 px-6 text-sm font-medium border-b-2 transition-colors ${
+                        activeTab === 'new'
+                        ? 'border-indigo-600 text-indigo-600'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    }`}
+                >
+                    New Bookings
+                </button>
+                <button
+                    onClick={() => setActiveTab('previous')}
+                    className={`py-3 px-6 text-sm font-medium border-b-2 transition-colors ${
+                        activeTab === 'previous'
+                        ? 'border-indigo-600 text-indigo-600'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    }`}
+                >
+                    Previous Bookings
+                </button>
+            </div>
 
             <div className="bg-white p-4 rounded-lg shadow mb-6 flex gap-4">
                 <div className="flex-1">

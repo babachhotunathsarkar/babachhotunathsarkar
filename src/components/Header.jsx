@@ -16,6 +16,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import NotificationDropdown from "./NotificationDropdown";
 import { fetchNotifications } from "../redux/notifications/notificationSlice";
 import { fetchMarquees } from "../redux/marquee/marqueeSlice";
+import { trackClick } from '../utils/analytics';
 
 export default function Header({ onMenuClick }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -202,6 +203,7 @@ export default function Header({ onMenuClick }) {
               <Link
                 key={link.path}
                 to={link.path}
+                onClick={() => trackClick(`nav_${link.label.toLowerCase().replace(/ /g, '_')}`)}
                 className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${location.pathname === link.path
                   ? "bg-orange-100 text-orange-700"
                   : "text-gray-700 hover:bg-orange-50 hover:text-orange-600"
@@ -281,6 +283,7 @@ export default function Header({ onMenuClick }) {
             {/* Donate */}
             <Link
               to="/donate"
+              onClick={() => trackClick('header_donate_click')}
               className="hidden md:flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-medium hover:from-orange-600 hover:to-orange-700 transition-all shadow-md hover:shadow-lg"
             >
               Donate
@@ -335,22 +338,26 @@ export default function Header({ onMenuClick }) {
                     </div>
 
                     <div className="p-2">
-                      <Link
-                        to="/userDashboard"
-                        onClick={() => setShowUserMenu(false)}
-                        className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-orange-50 transition-colors"
-                      >
-                        <User className="w-4 h-4 text-orange-500" />
-                        Dashboard
-                      </Link>
-                      <Link
-                        to="/token-dashboard"
-                        onClick={() => setShowUserMenu(false)}
-                        className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-orange-50 transition-colors"
-                      >
-                        <Bell className="w-4 h-4 text-orange-500" />
-                        Token Status
-                      </Link>
+                      {user?.role !== "admin" && (
+                        <>
+                          <Link
+                            to="/userDashboard"
+                            onClick={() => setShowUserMenu(false)}
+                            className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-orange-50 transition-colors"
+                          >
+                            <User className="w-4 h-4 text-orange-500" />
+                            Dashboard
+                          </Link>
+                          <Link
+                            to="/token-dashboard"
+                            onClick={() => setShowUserMenu(false)}
+                            className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-orange-50 transition-colors"
+                          >
+                            <Bell className="w-4 h-4 text-orange-500" />
+                            Token Status
+                          </Link>
+                        </>
+                      )}
                       <Link
                         to="/profile"
                         onClick={() => setShowUserMenu(false)}
@@ -454,20 +461,24 @@ export default function Header({ onMenuClick }) {
               {/* ✅ FIXED: Mobile menu mein bhi same condition */}
               {isUserLoggedIn && user ? (
                 <>
-                  <Link
-                    to="/userDashboard"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block px-4 py-3 bg-orange-50 text-orange-600 rounded-lg font-medium text-center"
-                  >
-                    Dashboard
-                  </Link>
-                  <Link
-                    to="/token-dashboard"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block px-4 py-3 bg-orange-50 text-orange-600 rounded-lg font-medium text-center"
-                  >
-                    Token Status
-                  </Link>
+                  {user?.role !== "admin" && (
+                    <>
+                      <Link
+                        to="/userDashboard"
+                        onClick={() => setIsMenuOpen(false)}
+                        className="block px-4 py-3 bg-orange-50 text-orange-600 rounded-lg font-medium text-center"
+                      >
+                        Dashboard
+                      </Link>
+                      <Link
+                        to="/token-dashboard"
+                        onClick={() => setIsMenuOpen(false)}
+                        className="block px-4 py-3 bg-orange-50 text-orange-600 rounded-lg font-medium text-center"
+                      >
+                        Token Status
+                      </Link>
+                    </>
+                  )}
                   {user?.role === "admin" && (
                     <Link
                       to="/admin"

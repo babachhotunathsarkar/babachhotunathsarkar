@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import authReducer from './auth/authSlice'
 import notificationsReducer from './slices/notificationsSlice'
-import eventsReducer from './slices/eventsSlice'
+import eventsReducer from './events/eventSlice'
 import galleryReducer from './slices/gallerySlice'
 import videosReducer from './videos/videoSlice'
 import liveUpdatesReducer from './slices/liveUpdatesSlice'
@@ -19,6 +19,9 @@ import darbarBookingReducer from './darbarBooking/darbarBookingSlice';
 import marqueeReducer from './marquee/marqueeSlice';
 import contactReducer from './contact/contactSlice';
 import appointmentReducer from './appointment/appointmentSlice';
+import donationSettingsReducer from './donationSettings/donationSettingsSlice';
+import pageContentReducer from './pageContent/pageContentSlice';
+import analyticsReducer from './analytics/analyticsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -41,5 +44,8 @@ export const store = configureStore({
     marquee: marqueeReducer,
     contact: contactReducer,
     appointments: appointmentReducer,
+    donationSettings: donationSettingsReducer,
+    pageContent: pageContentReducer,
+    analytics: analyticsReducer,
   },
 })

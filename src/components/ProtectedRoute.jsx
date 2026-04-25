@@ -28,7 +28,7 @@ export const AdminProtected = () => {
   }
 
   if (activeUser.role !== 'admin') {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/userDashboard" replace />;
   }
 
   return <Outlet />;
@@ -89,7 +89,7 @@ export const ProtectedRoute = ({ allowedRoles = [] }) => {
 
   if (allowedRoles.length > 0 && !allowedRoles.includes(activeUser.role)) {
     if (activeUser.role === 'admin') return <Navigate to="/admin" replace />;
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/userDashboard" replace />;
   }
 
   return <Outlet />;

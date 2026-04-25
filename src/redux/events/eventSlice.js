@@ -2,7 +2,12 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import EventService from './eventService';
  
 export const fetchEvents  = createAsyncThunk('events/fetchAll', async (params, { rejectWithValue }) => {
-  try { return await EventService.getAll(params); }
+  try { 
+    const response = await EventService.getAll(params); 
+    console.log("fetchEvents response:", response);
+    return response;
+  }
+  
   catch (e) { return rejectWithValue(e.response?.data?.message || 'Failed'); }
 });
 export const createEvent  = createAsyncThunk('events/create',   async (data, { rejectWithValue }) => {

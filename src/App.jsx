@@ -14,10 +14,19 @@ import Donate from './pages/Donate'
 import Programs from './pages/Programs'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import ForgotPassword from './pages/ForgotPassword'
 import UserDashboard from './pages/UserDashboard'
 import NotificationPopup from './components/NotificationPopup'
+import ScrollToTop from './components/ScrollToTop'
 import { ProtectedRoute, AdminProtected, UserProtected } from './components/ProtectedRoute'
-import AdminRoutes from './admin/admin' 
+import useTracker from './hooks/useAnalytics'
+
+// Global page view tracker (must be inside BrowserRouter)
+function TrackingWrapper() {
+  useTracker();
+  return null;
+}
+import AdminRoutes from './admin/admin'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsConditions from './pages/TermsConditions'
 import Profile from './pages/Profile';
@@ -27,9 +36,11 @@ import UserDashboardPage from './pages/UserDashboardPage';
 export default function App() {
   return (
     <>
+      <ScrollToTop />
+      <TrackingWrapper />
       <ToastContainer position="top-right" autoClose={3000} />
       <NotificationPopup />
-     
+
       <Routes>
         {/* Public Routes */}
         <Route element={<MainLayout />}>
@@ -45,23 +56,22 @@ export default function App() {
           <Route path="/darshan" element={<Darshan />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path ="/privacy-policy" element={<PrivacyPolicy/>}/>
-          <Route path ="/terms-conditions" element={<TermsConditions/>}/>
-          <Route path ="/userDashboard" element={<UserDashboard/>}/>
-          <Route path ="/darbar-booking" element={<DarbarBookingPage/>}/>
-          <Route path ="/token-dashboard" element={<UserDashboardPage/>}/>
-          <Route
-            path="/profile"
-            element={
-            
-                <Profile />
-         
-            }
-          />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-conditions" element={<TermsConditions />} />
+          <Route path="/darbar-booking" element={<DarbarBookingPage />} />
+          <Route element={<UserProtected />}>
+            <Route path="/userDashboard" element={<UserDashboard />} />
+            <Route path="/token-dashboard" element={<UserDashboardPage />} />
+            <Route
+              path="/profile"
+              element={<Profile />}
+            />
+          </Route>
         </Route>
-        
-      
-    {AdminRoutes}
+
+
+        {AdminRoutes}
       </Routes>
     </>
   )

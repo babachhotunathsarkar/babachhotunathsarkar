@@ -26,6 +26,18 @@ export const getUserLatestBooking = createAsyncThunk(
   }
 );
 
+export const getUserAllBookingsThunk = createAsyncThunk(
+  'darbarBooking/getUserAllBookings',
+  async (phoneNumber, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(`/darbar-bookings/user/${phoneNumber}/all`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || 'No bookings found');
+    }
+  }
+);
+
 export const getAllBookingsAdmin = createAsyncThunk(
   'darbarBooking/getAllBookingsAdmin',
   async (dateQuery = '', { rejectWithValue }) => {
@@ -68,6 +80,7 @@ export const deleteBookingAdmin = createAsyncThunk(
 const initialState = {
   bookings: [], // admin list
   latestUserBooking: null, // user latest
+  userBookingsHistory: [], // user all bookings array
   loading: false,
   error: null,
   successMessage: null,
@@ -144,6 +157,21 @@ const darbarBookingSlice = createSlice({
     // resetTokensAdmin
     builder.addCase(resetTokensAdmin.fulfilled, (state, action) => {
       state.successMessage = action.payload.message;
+    });
+
+    // getUserAllBookings
+    builder.addCase(getUserAllBookingsThunk.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+      state.userBookingsHistory = [];
+    });
+    builder.addCase(getUserAllBookingsThunk.fulfilled, (state, action) => {
+      state.loading = false;
+      state.userBookingsHistory = action.payload || [];
+    });
+    builder.addCase(getUserAllBookingsThunk.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
     });
   }
 });

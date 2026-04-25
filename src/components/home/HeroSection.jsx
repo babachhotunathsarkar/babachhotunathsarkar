@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, ChevronRight, Play, ArrowRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Play, ArrowRight, Calendar, Youtube } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { trackClick } from '../../utils/analytics'
 
 const carouselSlides = [
   {
@@ -140,18 +141,29 @@ export default function HeroSection() {
                 transition={{ delay: 1.1, duration: 0.6 }}
                 className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
               >
-                <Link 
-                  to="/darshan" 
+                <Link
+                  to="/about"
+                  onClick={() => trackClick('hero_know_about_us')}
                   className="w-full sm:w-auto px-8 py-4 bg-orange-600 text-white rounded-2xl font-bold text-lg shadow-2xl shadow-orange-600/30 hover:bg-orange-500 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3 group"
                 >
-                  <Play className="w-5 h-5 fill-current" /> दर्शन आरंभ करें
+                  <ArrowRight className="w-5 h-5" /> हमारे बारे में जानें
                 </Link>
-                <Link 
-                  to="/about"
-                  className="w-full sm:w-auto px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-2xl font-bold text-lg hover:bg-white/20 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2"
+                <Link
+                  to="/events"
+                  onClick={() => trackClick('hero_upcoming_events')}
+                  className="w-full sm:w-auto px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-2xl font-bold text-lg hover:bg-white/20 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3"
                 >
-                  संस्था के बारे में <ArrowRight className="w-5 h-5" />
+                  <Calendar className="w-5 h-5 text-orange-400" /> आगामी कार्यक्रम
                 </Link>
+                <a
+                  href="https://www.youtube.com/@Babachotunathsarkar"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackClick('hero_youtube_click')}
+                  className="w-full sm:w-auto px-8 py-4 bg-red-600 text-white rounded-2xl font-bold text-lg shadow-2xl shadow-red-600/30 hover:bg-red-500 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3"
+                >
+                  <Youtube className="w-5 h-5" /> YouTube Live
+                </a>
               </motion.div>
             </div>
           </div>

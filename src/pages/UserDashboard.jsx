@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Menu, CheckCircle, AlertCircle, IndianRupee } from 'lucide-react'
 import { logout } from '../redux/auth/authSlice'
 import { clearUser, getCurrentUser } from '../redux/users/userSlice'
-import { getUserLatestBooking } from '../redux/darbarBooking/darbarBookingSlice'
+import { getUserAllBookingsThunk } from '../redux/darbarBooking/darbarBookingSlice'
 import { fetchMyAppointments } from '../redux/appointment/appointmentSlice'
 
 // ── Dashboard sub-components ──────────────────────────────────────────
@@ -208,9 +208,9 @@ function EventsTab() {
           </div>
         ))}
       </div>
-      <a href="/events" className="mt-5 inline-flex items-center gap-1 text-orange-600 text-sm font-medium hover:underline">
+      <Link to="/events" className="mt-5 inline-flex items-center gap-1 text-orange-600 text-sm font-medium hover:underline">
         Sabhi events dekhein →
-      </a>
+      </Link>
     </div>
   )
 }
@@ -233,12 +233,12 @@ function BlessingsTab() {
 
 function BookingsTab({ user }) {
   const dispatch = useDispatch();
-  const { latestUserBooking, loading: darbarLoading } = useSelector((state) => state.darbarBooking || {});
+  const { userBookingsHistory = [], loading: darbarLoading } = useSelector((state) => state.darbarBooking || {});
   const { list: myAppointments, isLoading: appointmentsLoading } = useSelector((state) => state.appointments || {});
 
   useEffect(() => {
     if (user?.phone) {
-      dispatch(getUserLatestBooking(user.phone));
+      dispatch(getUserAllBookingsThunk(user.phone));
     }
     dispatch(fetchMyAppointments());
   }, [dispatch, user?.phone]);
@@ -265,7 +265,25 @@ function BookingsTab({ user }) {
 
   const isLoading = darbarLoading || appointmentsLoading;
 
-  if (isLoading && !latestUserBooking && !myAppointments.length) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  // Determine active booking (latest darbar that hasn't passed)
+  const activeBookings = userBookingsHistory.filter(b => {
+      const bDate = new Date(b.darbarDate);
+      bDate.setHours(0, 0, 0, 0);
+      return bDate >= today;
+  });
+  
+  const previousBookings = userBookingsHistory.filter(b => {
+      const bDate = new Date(b.darbarDate);
+      bDate.setHours(0, 0, 0, 0);
+      return bDate < today;
+  });
+
+  const latestUserBooking = activeBookings.length > 0 ? activeBookings[0] : null;
+
+  if (isLoading && userBookingsHistory.length === 0 && !myAppointments.length) {
     return <Loader fullScreen={false} />
   }
 
@@ -327,6 +345,29 @@ function BookingsTab({ user }) {
           )}
         </div>
       </div>
+
+      {/* ── SECTION 1B: Previous Bookings ───────────────────────────────────── */}
+      {previousBookings.length > 0 && (
+          <div>
+            <div className="flex items-center gap-3 mb-4 px-2">
+              <Calendar className="w-5 h-5 text-gray-400" />
+              <h2 className="text-xl font-bold text-gray-900 font-primary">Previous Bookings</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+               {previousBookings.map(b => (
+                   <div key={b._id} className="bg-white p-5 rounded-3xl shadow-sm border border-gray-100 flex gap-4 items-center opacity-80 hover:opacity-100 transition-opacity">
+                       <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center font-bold text-gray-400 flex-shrink-0">
+                           #{b.tokenNumber}
+                       </div>
+                       <div>
+                           <p className="font-bold text-gray-800">{fmt(b.darbarDate)}</p>
+                           <p className="text-sm text-gray-500">{b.devoteeName} · {b.numberOfPeople} People</p>
+                       </div>
+                   </div>
+               ))}
+            </div>
+          </div>
+      )}
 
       {/* ── SECTION 2: Appointments ─────────────────────────────────────────── */}
       <div>

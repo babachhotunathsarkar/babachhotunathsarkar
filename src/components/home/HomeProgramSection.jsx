@@ -2,13 +2,15 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import { Clock, Sun, Star, Calendar } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { trackClick } from '../../utils/analytics';
 import { fetchActiveSchedules } from '../../redux/schedule/scheduleSlice';
 import { fetchActiveTimings } from '../../redux/timing/timingSlice';
 import { fetchActiveSpecialDays } from '../../redux/specialDay/specialDaySlice';
 
 export default function HomeProgramSection() {
   const dispatch = useDispatch();
-  
+
   const { schedules, isLoading: isSchedulesLoading } = useSelector(state => state.schedule);
   const { timings, isLoading: isTimingsLoading } = useSelector(state => state.timing);
   const { specialDays, isLoading: isSpecialDaysLoading } = useSelector(state => state.specialDay);
@@ -42,14 +44,14 @@ export default function HomeProgramSection() {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <motion.span 
+          <motion.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             className="text-orange-600 font-bold uppercase tracking-widest text-sm"
           >
             दिव्य दर्शन एवं सेवा
           </motion.span>
-          <motion.h2 
+          <motion.h2
             initial={{ y: 20, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             className="text-4xl md:text-5xl font-bold text-gray-900 mt-2 mb-4"
@@ -59,7 +61,7 @@ export default function HomeProgramSection() {
           <div className="w-24 h-1.5 bg-orange-500 mx-auto rounded-full"></div>
         </div>
 
-        <motion.div 
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -74,7 +76,7 @@ export default function HomeProgramSection() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900">मंदिर के समय</h3>
             </div>
-            
+
             <div className="space-y-6">
               {timings.length > 0 ? timings.map((t, idx) => (
                 <div key={idx} className="flex items-center justify-between p-4 bg-orange-50/50 rounded-2xl border border-orange-100/50">
@@ -91,7 +93,7 @@ export default function HomeProgramSection() {
 
           {/* Daily Schedule Section */}
           <motion.div variants={itemVariants} className="bg-white p-8 rounded-3xl border border-gray-100 shadow-xl shadow-gray-100/50 hover:border-orange-200 transition-all group lg:scale-105 lg:z-20 border-orange-100">
-             <div className="flex items-center gap-4 mb-8">
+            <div className="flex items-center gap-4 mb-8">
               <div className="w-14 h-14 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center group-hover:bg-orange-600 group-hover:text-white transition-colors">
                 <Clock className="w-7 h-7" />
               </div>
@@ -122,13 +124,13 @@ export default function HomeProgramSection() {
             <div className="space-y-6">
               {specialDays.length > 0 ? specialDays.map((d, idx) => (
                 <div key={idx} className="flex items-start gap-4">
-                   <div className="w-12 h-12 bg-white border border-gray-100 rounded-xl shadow-sm flex flex-col items-center justify-center text-orange-600 shrink-0">
-                      <Calendar className="w-5 h-5" />
-                   </div>
-                   <div>
-                     <p className="font-bold text-gray-900 leading-tight">{d.title}</p>
-                     <p className="text-orange-600 font-bold text-xs mt-1">{d.date}</p>
-                   </div>
+                  <div className="w-12 h-12 bg-white border border-gray-100 rounded-xl shadow-sm flex flex-col items-center justify-center text-orange-600 shrink-0">
+                    <Calendar className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="font-bold text-gray-900 leading-tight">{d.title}</p>
+                    <p className="text-orange-600 font-bold text-xs mt-1">{d.date}</p>
+                  </div>
                 </div>
               )) : (
                 <p className="text-gray-400 italic text-center py-4">जानकारी जल्द ही...</p>
@@ -139,20 +141,20 @@ export default function HomeProgramSection() {
 
         {/* Call to Action Links */}
         <div className="mt-20 flex flex-wrap justify-center gap-6">
-           <motion.a 
-            href="/about"
-            whileHover={{ scale: 1.05 }}
-            className="px-8 py-4 bg-orange-500 text-white rounded-2xl font-bold hover:bg-orange-600 transition-all shadow-lg shadow-orange-200"
-           >
-             हमारे बारे में जानें
-           </motion.a>
-           <motion.a 
-            href="/events"
-            whileHover={{ scale: 1.05 }}
-            className="px-8 py-4 bg-white border-2 border-orange-500 text-orange-600 rounded-2xl font-bold hover:bg-orange-50 transition-all"
-           >
-             आगामी कार्यक्रम देखें
-           </motion.a>
+          <Link
+            to="/about"
+            onClick={() => trackClick('home_program_about_click')}
+            className="px-10 py-4 bg-orange-600 text-white rounded-[2rem] font-bold hover:bg-orange-500 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-orange-200"
+          >
+            हमारे बारे में जानें
+          </Link>
+          <Link
+            to="/events"
+            onClick={() => trackClick('home_program_events_click')}
+            className="px-10 py-4 bg-white border-2 border-orange-600 text-orange-600 rounded-[2rem] font-bold hover:bg-orange-50 hover:scale-105 active:scale-95 transition-all shadow-sm"
+          >
+            आगामी कार्यक्रम देखें
+          </Link>
         </div>
       </div>
     </section>
