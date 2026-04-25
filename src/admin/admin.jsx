@@ -14,6 +14,10 @@ import ScheduleManagement from "./components/ScheduleManagement";
 import TimingsManagement from "./components/TimingsManagement";
 import SpecialDaysManagement from "./components/SpecialDaysManagement";
 import UserManagement from "./components/UserManagement";
+import AdminPrivacyManagement from "./components/AdminPrivacyManagement";
+import AdminTermsManagement from "./components/AdminTermsManagement";
+import AdminCookieManagement from "./components/AdminCookieManagement";
+import { Shield, FileText, Cookie } from "lucide-react";
 
 
 const AdminRoutes = (
@@ -32,6 +36,12 @@ const AdminRoutes = (
       <Route path="timings" element={<TimingsManagement />} />
       <Route path="special-days" element={<SpecialDaysManagement />} />
       <Route path="users" element={<UserManagement />} />
+      
+      {/* Legal Policies (Refactored) */}
+      <Route path="manage-privacy" element={<AdminPrivacyManagement />} />
+      <Route path="manage-terms" element={<AdminTermsManagement />} />
+      <Route path="manage-cookie" element={<AdminCookieManagement />} />
+
       <Route path="*" element={<Dashboard />} />
     </Route>
   </Route>

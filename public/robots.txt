@@ -1,7 +1,21 @@
 User-agent: *
 Allow: /
+Disallow: /api/
 Disallow: /admin/
-Disallow: /profile/
-Disallow: /userDashboard/
+Disallow: /private/
+Disallow: /_next/
+Disallow: /static/
 
 Sitemap: https://babachhotunathsarkar.vercel.app/sitemap.xml
+Host: https://babachhotunathsarkar.vercel.app
+
+# Allow Google bots
+User-agent: Googlebot
+Allow: /
+Allow: /about
+Allow: /darshan
+Allow: /events
+Allow: /darbar-booking
+
+# Crawl delay to not overload server
+Crawl-delay: 1

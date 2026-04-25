@@ -3,15 +3,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPageContent, updatePageContentAPI, clearMessages } from '../../redux/pageContent/pageContentSlice';
 import { FileText, Plus, Trash2, Save, ArrowUp, ArrowDown, Loader2, CheckCircle, X } from 'lucide-react';
 
-const SLUGS = [
+import { Eye } from 'lucide-react';
+
+const DEFAULT_SLUGS = [
     { slug: 'privacy-policy', label: 'Privacy Policy', icon: '🔒' },
-    { slug: 'terms-conditions', label: 'Terms & Conditions', icon: '📋' },
+    { slug: 'terms-and-conditions', label: 'Terms & Conditions', icon: '📋' },
+    { slug: 'refund-policy', label: 'Refund Policy', icon: '💰' },
+    { slug: 'cookie-policy', label: 'Cookie Policy', icon: '🍪' },
 ];
 
 export default function PageContentManagement() {
     const dispatch = useDispatch();
     const { pages, loading, error, successMessage } = useSelector(s => s.pageContent);
+    const [allSlugs, setAllSlugs] = useState(DEFAULT_SLUGS);
     const [activeSlug, setActiveSlug] = useState('privacy-policy');
+    const [showAddSlug, setShowAddSlug] = useState(false);
+    const [newSlug, setNewSlug] = useState({ slug: '', label: '' });
     const [form, setForm] = useState({ title: '', sections: [], contactEmail: '', contactPhone: '', contactAddress: '' });
     const [saving, setSaving] = useState(false);
 
@@ -79,6 +86,15 @@ export default function PageContentManagement() {
         });
     };
 
+    const addNewSlug = () => {
+        if (!newSlug.slug || !newSlug.label) return;
+        const slug = newSlug.slug.toLowerCase().replace(/ /g, '-');
+        setAllSlugs([...allSlugs, { slug, label: newSlug.label, icon: '📄' }]);
+        setActiveSlug(slug);
+        setShowAddSlug(false);
+        setNewSlug({ slug: '', label: '' });
+    };
+
     return (
         <div className="p-6 space-y-6 max-w-4xl mx-auto">
             <div className="flex items-center justify-between flex-wrap gap-4">
@@ -86,28 +102,97 @@ export default function PageContentManagement() {
                     <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
                         <FileText className="w-7 h-7 text-indigo-600" /> Page Content Management
                     </h1>
-                    <p className="text-gray-500 text-sm mt-1">Edit Privacy Policy and Terms & Conditions content dynamically.</p>
+                    <p className="text-gray-500 text-sm mt-1">Edit legal pages like Privacy Policy and Terms & Conditions dynamically.</p>
                 </div>
-                <button
-                    onClick={handleSave}
-                    disabled={saving}
-                    className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold transition-colors disabled:opacity-60"
-                >
-                    {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-                    Save Page
-                </button>
+                <div className="flex gap-2">
+                    <button
+                        onClick={() => setShowAddSlug(true)}
+                        className="flex items-center gap-2 px-4 py-2.5 border border-indigo-100 hover:bg-indigo-50 text-indigo-600 rounded-xl font-semibold transition-colors shadow-sm"
+                    >
+                        <Plus className="w-4 h-4" />
+                        Add New Page
+                    </button>
+                    <a
+                        href={DEFAULT_SLUGS.find(s => s.slug === activeSlug) ? `/${activeSlug}` : `/p/${activeSlug}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center gap-2 px-4 py-2.5 border border-gray-200 hover:bg-gray-50 text-gray-700 rounded-xl font-semibold transition-colors shadow-sm"
+                    >
+                        <Eye className="w-4 h-4" />
+                        View Live
+                    </a>
+                    <button
+                        onClick={handleSave}
+                        disabled={saving}
+                        className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold transition-colors shadow-sm disabled:opacity-60"
+                    >
+                        {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                        Save Changes
+                    </button>
+                </div>
             </div>
 
+            {/* Modal for adding new slug */}
+            {showAddSlug && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+                    <div className="bg-white rounded-[2rem] shadow-2xl p-8 w-full max-w-md border border-indigo-50">
+                        <h2 className="text-2xl font-bold text-gray-900 mb-2">Create New Page</h2>
+                        <p className="text-gray-500 text-sm mb-6">Enter a title and a simple URL slug for your new page.</p>
+                        
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-sm font-bold text-gray-700 mb-1">Page Title</label>
+                                <input 
+                                    type="text"
+                                    value={newSlug.label}
+                                    onChange={e => setNewSlug({...newSlug, label: e.target.value})}
+                                    placeholder="e.g. Disclaimer"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:border-indigo-400"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-bold text-gray-700 mb-1">URL Slug</label>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-gray-400 font-mono text-sm">/p/</span>
+                                    <input 
+                                        type="text"
+                                        value={newSlug.slug}
+                                        onChange={e => setNewSlug({...newSlug, slug: e.target.value})}
+                                        placeholder="disclaimer"
+                                        className="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:border-indigo-400 font-mono"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div className="flex gap-3 mt-8">
+                            <button 
+                                onClick={() => setShowAddSlug(false)}
+                                className="flex-1 px-6 py-3 border border-gray-200 hover:bg-gray-50 text-gray-700 rounded-xl font-bold"
+                            >
+                                Cancel
+                            </button>
+                            <button 
+                                onClick={addNewSlug}
+                                className="flex-1 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold"
+                            >
+                                Create
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Tab switcher */}
-            <div className="flex gap-2 border-b border-gray-200">
-                {SLUGS.map(({ slug, label, icon }) => (
+            <div className="flex gap-2 border-b border-gray-200 overflow-x-auto no-scrollbar">
+                {allSlugs.map(({ slug, label, icon }) => (
                     <button
                         key={slug}
                         onClick={() => setActiveSlug(slug)}
-                        className={`flex items-center gap-2 px-5 py-3 text-sm font-medium border-b-2 transition-colors ${
+                        className={`flex items-center gap-2 px-5 py-3 text-sm font-bold border-b-2 transition-colors whitespace-nowrap ${
                             activeSlug === slug
-                                ? 'border-indigo-600 text-indigo-600'
-                                : 'border-transparent text-gray-500 hover:text-gray-700'
+                                ? 'border-indigo-600 text-indigo-600 bg-indigo-50/50'
+                                : 'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50'
                         }`}
                     >
                         <span>{icon}</span> {label}

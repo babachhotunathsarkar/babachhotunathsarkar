@@ -2,11 +2,11 @@
 import { useState, useEffect } from 'react';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { 
-  LayoutDashboard, 
-  Image, 
-  Video, 
-  AlignLeft, 
+import {
+  LayoutDashboard,
+  Image,
+  Video,
+  AlignLeft,
   LogOut,
   ChevronLeft,
   ChevronRight,
@@ -20,7 +20,9 @@ import {
   BarChart2,
   IndianRupee,
   FileText,
-  Users
+  Users,
+  Shield,
+  Cookie
 } from 'lucide-react';
 import { logoutUser } from '../../redux/auth/authSlice';
 
@@ -78,14 +80,21 @@ export default function AdminSidebar() {
         { to: '/admin/address', icon: MapPin, label: 'Addresses' },
         { to: '/admin/users', icon: Users, label: 'Users' },
       ]
+    },
+    {
+      title: 'कानूनी (Legal)',
+      items: [
+        { to: '/admin/manage-privacy', icon: Shield, label: 'Privacy Policy' },
+        { to: '/admin/manage-terms', icon: FileText, label: 'Terms & Conditions' },
+        { to: '/admin/manage-cookie', icon: Cookie, label: 'Cookie Policy' },
+      ]
     }
   ];
 
   return (
-    <div 
-      className={`relative bg-white text-gray-700 shadow-xl transition-all duration-500 h-full flex flex-col ${
-        isCollapsed ? 'w-20' : 'w-72'
-      }`}
+    <div
+      className={`relative bg-white text-gray-700 shadow-xl transition-all duration-500 h-full flex flex-col ${isCollapsed ? 'w-20' : 'w-72'
+        }`}
     >
       {/* Toggle Button */}
       <button
@@ -122,9 +131,8 @@ export default function AdminSidebar() {
                   <NavLink
                     to={item.to}
                     className={({ isActive }) =>
-                      `flex items-center ${isCollapsed ? 'justify-center' : 'justify-start gap-4'} px-4 py-3 rounded-xl transition-all duration-300 group ${
-                        isActive 
-                        ? 'bg-orange-50 text-orange-600 font-bold border-r-4 border-orange-500 rounded-r-none' 
+                      `flex items-center ${isCollapsed ? 'justify-center' : 'justify-start gap-4'} px-4 py-3 rounded-xl transition-all duration-300 group ${isActive
+                        ? 'bg-orange-50 text-orange-600 font-bold border-r-4 border-orange-500 rounded-r-none'
                         : 'hover:bg-orange-50/50 hover:text-orange-500'
                       }`
                     }
@@ -138,7 +146,7 @@ export default function AdminSidebar() {
                       </>
                     )}
                   </NavLink>
-                  
+
                   {isCollapsed && hoveredItem === item.to && (
                     <div className="absolute left-full top-1/2 -translate-y-1/2 ml-4 px-3 py-2 bg-gray-900 text-white text-xs font-bold rounded-lg shadow-2xl z-[100] animate-in fade-in slide-in-from-left-2">
                       {item.label}

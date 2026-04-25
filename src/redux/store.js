@@ -22,6 +22,9 @@ import appointmentReducer from './appointment/appointmentSlice';
 import donationSettingsReducer from './donationSettings/donationSettingsSlice';
 import pageContentReducer from './pageContent/pageContentSlice';
 import analyticsReducer from './analytics/analyticsSlice';
+import privacyReducer from './privacy/privacySlice';
+import termsReducer from './terms/termsSlice';
+import cookieReducer from './cookie/cookieSlice';
 
 export const store = configureStore({
   reducer: {
@@ -47,5 +50,8 @@ export const store = configureStore({
     donationSettings: donationSettingsReducer,
     pageContent: pageContentReducer,
     analytics: analyticsReducer,
+    privacy: privacyReducer,
+    terms: termsReducer,
+    cookie: cookieReducer,
   },
 })

@@ -46,7 +46,9 @@ export default function Footer() {
 
   const legalLinks = [
     { path: '/privacy-policy', label: 'Privacy Policy' },
-    { path: '/terms-conditions', label: 'Terms & Conditions' },
+    { path: '/terms-and-conditions', label: 'Terms & Conditions' },
+    { path: '/cookie-policy', label: 'Cookie Policy' },
+
   ];
 
   return (

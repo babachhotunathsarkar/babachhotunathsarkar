@@ -18,6 +18,10 @@ import ForgotPassword from './pages/ForgotPassword'
 import UserDashboard from './pages/UserDashboard'
 import NotificationPopup from './components/NotificationPopup'
 import ScrollToTop from './components/ScrollToTop'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import TermsConditions from './pages/TermsConditions'
+import CookiePolicy from './pages/CookiePolicy'
+import CookieConsent from './components/CookieConsent'
 import { ProtectedRoute, AdminProtected, UserProtected } from './components/ProtectedRoute'
 import useTracker from './hooks/useAnalytics'
 
@@ -27,12 +31,13 @@ function TrackingWrapper() {
   return null;
 }
 import AdminRoutes from './admin/admin'
-import PrivacyPolicy from './pages/PrivacyPolicy'
-import TermsConditions from './pages/TermsConditions'
+import DynamicLegalPage from './pages/DynamicLegalPage'
+import { Shield, FileText, BadgeDollarSign, Cookie } from 'lucide-react'
 import Profile from './pages/Profile';
 import Darshan from './pages/Darshan';
 import DarbarBookingPage from './pages/DarbarBookingPage';
 import UserDashboardPage from './pages/UserDashboardPage';
+
 export default function App() {
   return (
     <>
@@ -40,6 +45,7 @@ export default function App() {
       <TrackingWrapper />
       <ToastContainer position="top-right" autoClose={3000} />
       <NotificationPopup />
+      <CookieConsent />
 
       <Routes>
         {/* Public Routes */}
@@ -57,8 +63,13 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/terms-conditions" element={<TermsConditions />} />
+          <Route path="/terms-and-conditions" element={<TermsConditions />} />
+          <Route path="/refund-policy" element={<DynamicLegalPage slug="refund-policy" title="Refund Policy" icon={BadgeDollarSign} />} />
+          <Route path="/cookie-policy" element={<CookiePolicy />} />
+          <Route path="/p/:slug" element={<DynamicLegalPage />} />
+
           <Route path="/darbar-booking" element={<DarbarBookingPage />} />
           <Route element={<UserProtected />}>
             <Route path="/userDashboard" element={<UserDashboard />} />
